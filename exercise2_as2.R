@@ -1,4 +1,4 @@
-#Load data sample from two prescribed text files
+#Load data sample from two prescribed text files that are stored under same folder
 data79 <- scan("light1879.txt")
 data82 <- scan("light1882.txt")
 
@@ -54,12 +54,7 @@ print(median79_CIUB)
 
 #Calculate 95% CI for population median of light1882
 median82_CILB <- median82 - qnormValue*sd82/sqrt(n82)
-print(median79_CILB)
-median82_CIUB <- median82 + qnormValue*sd79/sqrt(n82)
+print(median82_CILB)
+median82_CIUB <- median82 + qnormValue*sd82/sqrt(n82)
 print(median82_CIUB)
-
-
-
-
-
 
