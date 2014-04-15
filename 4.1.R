@@ -1,3 +1,4 @@
+ to task 4.2
 rundata = read.table(file='run.txt',header=TRUE)
 lemotime = rundata[rundata[,'drink']=='lemo',1:2]
 lemospeed = 60/lemotime

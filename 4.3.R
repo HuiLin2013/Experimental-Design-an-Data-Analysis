@@ -46,4 +46,3 @@ for(i in 1:24){
   
 }
 qqplot(xranks,yranks,main="QQplot of xranks against yranks")
-
