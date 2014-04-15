@@ -1,0 +1,49 @@
+rundata = read.table(file='run.txt',header=TRUE)
+lemotime = rundata[rundata[,'drink']=='lemo',1:2]
+energytime = rundata[rundata[,'drink']=='energy',1:2]
+
+lemotimedif=lemotime[,1]-lemotime[,2]
+energytimedif=energytime[,1]-energytime[,2]
+
+print(wilcox.test(lemotimedif,energytimedif))
+#merge the two samples
+matrix=matrix(,nrow=24,ncol=3)
+for(i in 1:12){
+  matrix[i,1]=1;
+  matrix[i,2]=lemotimedif[i];
+  matrix[i,3]=1;
+  
+}
+for(i in 1:12){
+  matrix[i+12,1]=2;
+  matrix[i+12,2]=energytimedif[i];
+  matrix[i+12,3]=2;
+  
+}
+print(matrix)
+matrix=matrix[order(matrix[,2]),]
+print(matrix)
+for(i in 1:24){
+  matrix[i,3]=i;
+  
+}
+#get the ranks for the corresponding sample
+print(matrix)
+xranks=numeric(12)
+yranks=numeric(12)
+
+j=1;k=1;
+for(i in 1:24){
+  if(matrix[i,1]==1)
+  {
+    xranks[j]=matrix[i,3];
+    j=j+1;
+  }
+  else{
+    yranks[k]=matrix[i,3];
+    k=k+1;
+  }
+  
+}
+qqplot(xranks,yranks,main="QQplot of xranks against yranks")
+
