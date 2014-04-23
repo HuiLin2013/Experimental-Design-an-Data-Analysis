@@ -62,3 +62,9 @@ wilcox.test(sqrt2_seeded, sqrt2_unseeded)
 #Kolmogorov SmimovS
 ks.test(sqrt2_seeded, sqrt2_unseeded)
 
+##Check whether theclouds dataset follows normal distribution
+qqnorm(seeded, main="QQ-Plot of seeded population from clouds")
+qqline(seeded)
+qqnorm(unseeded, main="QQ-Plot of unseeded population from clouds")
+qqline(unseeded)
+
