@@ -1,0 +1,27 @@
+library(multcomp)
+yoghurt = read.table("cream.txt",header=TRUE)
+
+attach(yoghurt)
+par(mfrow=c(1,3))
+boxplot(acidity~batch, xlab="batch", ylab="acidity", main="Boxplot of acidity\n depending on batch")
+boxplot(acidity~position, xlab="position", ylab="acidity", main="Boxplot of acidity\n depending on position")
+boxplot(acidity~starter, xlab="starter", ylab="acidity", main="Boxplot of acidity\n depending on starter")
+
+yoghurt$batch=as.factor(yoghurt$batch)
+yoghurt$position=as.factor(yoghurt$position)
+yoghurt$starter=as.factor(yoghurt$starter)
+
+yoghurt_model = lm(acidity~batch+position+starter, data=yoghurt)
+print(anova(yoghurt_model))
+print("Regular summary")
+print(summary(yoghurt_model))
+
+print("Simultaneous summary")
+yoghurtmult=glht(yoghurt_model,linfct=mcp(starter="Tukey"))
+print("Multiple comp summary")
+print(summary(yoghurtmult))
+print("Multiple comp intervals")
+print(confint(yoghurtmult))
+qqnorm(residuals(yoghurt_model),main="Residuals QQ-plot")
+qqnorm(rnorm(26), main="Normal sample QQ-plot")
+plot(fitted(yoghurt_model),residuals(yoghurt_model))
