@@ -9,7 +9,7 @@ nausea.frame <- data.frame(nausea,medicin)
 nausea.frame
 
 #The outcome of xtabs
-xtabs(~nausea.frame$medicin+nausea.frame$naus)
+xtabs(~nausea.frame$medicin+nausea.frame$nausea)
 
 #Permutation test
 mystat <- function(x) sum(residuals(x)^2)
@@ -18,14 +18,12 @@ tstar=numeric(B)
 for (i in 1:B)
 {
   treatstar = sample(factor(nausea.frame$medicin))
-  tstar[i] = mystat(lm(nausea.frame$naus~nausea.frame$medicin))  
+  tstar[i] = mystat(lm(nausea.frame$nausea~nausea.frame$medicin))  
 }
-myt=mystat(lm(nausea.frame$naus~nausea.frame$medicin))
-hist(tstar)
-print(myt)
+myt=mystat(lm(nausea.frame$nausea~nausea.frame$medicin))
 pl=sum(tstar<myt)/B
 pr=sum(tstar>myt)/B
 print(pl)
 
 #chisq.test
-chisq.test(xtabs(~nausea.frame$medicin+nausea.frame$naus))
+chisq.test(xtabs(~nausea.frame$medicin+nausea.frame$nausea))
